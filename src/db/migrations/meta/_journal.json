@@ -8,6 +8,13 @@
       "when": 1778340717946,
       "tag": "0000_fluffy_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778601090049,
+      "tag": "0001_plain_purple_man",
+      "breakpoints": true
     }
   ]
 }

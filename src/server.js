@@ -12,11 +12,11 @@ app.get("/api/health", (req, res) => {
 
 app.post("/api/favorite", async(req, res) => {
   try {
-    const {userId,recipeId, title, image,cookTime , Servings} = req.body;
+    const {userId,recipeId, title, image,cookTime , servings} = req.body;
     if(!userId || !recipeId || !title ){
       return res.status(400).json({ status: false, message: "Missing required fields" });
     }
-   const newFavorite = await db.insert(favoriteRecipes).values({userId,recipeId,title,image,cookTime,Servings}).returning();
+   const newFavorite = await db.insert(favoriteRecipes).values({userId,recipeId,title,image,cookTime,servings}).returning();
     res.status(201).json(newFavorite[0]);
   } catch (error) {
     console.error("Error adding favorite recipe:", error);
@@ -41,13 +41,13 @@ app.delete("/api/favorite/:userId/:recipeId", async (req, res) => {
 app.get("/api/favorite/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-    const userFavorites= await db.select().from(favoriteRecipes).where(eq(favoriteRecipes.userId, userId));
-    res.status(200).json(userFavorites);
     if (!userId) {
       return res.status(400).json({ status: false, message: "Missing required parameter" });
     }
-    const favoriteRecipesList = await db.select().from(favoriteRecipes).where(eq(favoriteRecipes.userId, userId));
-    res.status(200).json(favoriteRecipesList);
+    const userFavorites = await db.select()
+      .from(favoriteRecipes)
+      .where(eq(favoriteRecipes.userId, userId));
+    res.status(200).json(userFavorites);
   } catch (error) {
     console.error("Error fetching favorite recipes:", error);
     res.status(500).json({ status: false, message: "Internal server error" });
