@@ -13,7 +13,7 @@ app.get("/api/health", (req, res) => {
   res.status(200).json({ status: true });
 });
 
-app.post("/api/favorite", async(req, res) => {
+app.post("/api/favorites", async(req, res) => {
   try {
     const {userId,recipeId, title, image,cookTime , servings} = req.body;
     if(!userId || !recipeId || !title ){
@@ -27,7 +27,7 @@ app.post("/api/favorite", async(req, res) => {
   }
 });
 
-app.delete("/api/favorite/:userId/:recipeId", async (req, res) => {
+app.delete("/api/favorites/:userId/:recipeId", async (req, res) => {
   try {
     const { userId, recipeId } = req.params;
     if (!userId || !recipeId) {
@@ -41,7 +41,7 @@ app.delete("/api/favorite/:userId/:recipeId", async (req, res) => {
   }
 });
 
-app.get("/api/favorite/:userId", async (req, res) => {
+app.get("/api/favorites/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     if (!userId) {
